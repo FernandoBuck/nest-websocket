@@ -1,0 +1,13 @@
+version: '3'
+services:
+  myapp:
+    image: node:18.15.0-slim
+    working_dir: /app
+    volumes:
+      - ../../:/app
+    ports:
+      - '3000:3000'
+    command: npm run start:dev
+networks:
+  dev-net:
+    driver: bridge
