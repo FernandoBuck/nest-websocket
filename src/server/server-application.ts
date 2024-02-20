@@ -1,5 +1,4 @@
 import { NestFactory } from '@nestjs/core';
-import { NestExpressApplication } from '@nestjs/platform-express';
 import RootModule from 'src/v1/application/modules/root.module';
 import { Logger as PinoLogger } from 'nestjs-pino';
 import AppConfig from 'src/v1/infrastructure/config/app.config';
