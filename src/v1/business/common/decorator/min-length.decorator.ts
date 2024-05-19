@@ -1,20 +1,21 @@
 export function minLength(min: number) {
-  return (target: any, key: string, descriptor?: PropertyDescriptor) => {
-    console.log(descriptor);
-    console.log(target);
-    console.log(target.get);
-    console.log(key);
-    console.log(target.constructor);
+  return (target: any, key: string) => {
+    const descriptor: PropertyDescriptor = Object.getOwnPropertyDescriptor(target, key);
+    let _value = target[key];
+    const getter = () => _value;
+    const setter = (value: any) => {
+      descriptor?.set(value);
+      if (value.toString().length < min) {
+        throw new Error('Min length ' + min.toString());
+      }
+      _value = value;
+    };
 
-    if (descriptor && descriptor.set) {
-      const originalSetter = descriptor.set;
-      descriptor.set = (value: any) => {
-        console.log(value);
-        if (value.toString().length < min) {
-          throw new Error('Min length ' + min.toString());
-        }
-        originalSetter.call(this, value);
-      };
-    }
+
+    Object.defineProperty(target, key, {
+      get: getter,
+      set: setter,
+      configurable: true
+    });
   };
 }
