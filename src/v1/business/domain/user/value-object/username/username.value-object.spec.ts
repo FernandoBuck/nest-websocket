@@ -9,7 +9,7 @@ describe('Username Value Object', () => {
     expect(username.value).toBe(validValue);
   });
 
-  // it.each(invalidValues)('should fail', (invalidValue) => {
-  // expect(() => new Username(invalidValue)).toThrow();
-  // });
+  it.each(invalidValues)('should fail', (invalidValue) => {
+    expect(() => new Username(invalidValue)).toThrow();
+  });
 });
