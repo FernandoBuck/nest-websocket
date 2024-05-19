@@ -8,6 +8,20 @@ services:
     ports:
       - '3000:3000'
     command: npm run start:dev
+  mysql_test:
+    container_name: 'mysql-db'
+    image: mysql:8.0
+    restart: always
+    command: mysqld --sql_mode="IGNORE_SPACE,STRICT_TRANS_TABLES"
+    ports:
+      - '${MYSQL_PORT}:3306'
+    environment:
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - /integration_test_data:/var/lib/mysql
 networks:
   dev-net:
     driver: bridge
