@@ -3,6 +3,6 @@ import { AppModule } from './app.module';
 import WebsocketModule from './websocket.module';
 
 @Module({
-  imports: [WebsocketModule, AppModule],
+    imports: [WebsocketModule, AppModule],
 })
 export default class RootModule {}
