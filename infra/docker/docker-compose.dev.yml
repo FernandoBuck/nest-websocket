@@ -7,7 +7,7 @@ services:
       - ../../:/app
     ports:
       - '3000:3000'
-    command: npm run start:dev
+    command: sh -c "apt-get update && apt-get install -y procps && npm run start:dev"
   mysql_test:
     container_name: 'mysql-db'
     image: mysql:8.0
