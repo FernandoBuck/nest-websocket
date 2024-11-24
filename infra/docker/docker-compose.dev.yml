@@ -1,6 +1,6 @@
 version: '3'
 services:
-  myapp:
+  app:
     image: node:18.15.0-slim
     working_dir: /app
     volumes:
@@ -8,7 +8,7 @@ services:
     ports:
       - '3000:3000'
     command: sh -c "apt-get update && apt-get install -y procps && npm run start:dev"
-  mysql_test:
+  msqldatabase:
     container_name: 'mysql-db'
     image: mysql:8.0
     restart: always
@@ -21,7 +21,7 @@ services:
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
     volumes:
-      - /integration_test_data:/var/lib/mysql
+      - ./database:/var/lib/mysql
 networks:
   dev-net:
     driver: bridge
