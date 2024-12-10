@@ -5,26 +5,26 @@ import AppConfig from 'src/v1/infrastructure/config/app.config';
 import { Logger } from '@nestjs/common';
 
 export default class ServerApplication {
-  public async run(): Promise<void> {
-    const app = await NestFactory.create(RootModule, {
-      cors: true,
-    });
+    public async run(): Promise<void> {
+        const app = await NestFactory.create(RootModule, {
+            cors: true,
+        });
 
-    if (process.env.NODE_ENV !== 'dev') {
-      app.useLogger(app.get(PinoLogger));
+        if (process.env.NODE_ENV !== 'dev') {
+            app.useLogger(app.get(PinoLogger));
+        }
+
+        app.listen(AppConfig.PORT, AppConfig.HOST, this.log.bind(this));
     }
 
-    app.listen(AppConfig.PORT, AppConfig.HOST, this.log.bind(this));
-  }
+    private log(): void {
+        Logger.log(
+            `Server started on host: http://${AppConfig.HOST}:${AppConfig.PORT};`,
+            ServerApplication.name,
+        );
+    }
 
-  private log(): void {
-    Logger.log(
-      `Server started on host: http://${AppConfig.HOST}:${AppConfig.PORT};`,
-      ServerApplication.name,
-    );
-  }
-
-  public static new(): ServerApplication {
-    return new ServerApplication();
-  }
+    public static new(): ServerApplication {
+        return new ServerApplication();
+    }
 }
