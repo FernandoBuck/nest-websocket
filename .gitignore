@@ -36,3 +36,8 @@ lerna-debug.log*
 !.vscode/extensions.json
 
 infra/docker/database
+
+!env
+env/.env.dev
+env/.env.prd
+env/.env.stg
